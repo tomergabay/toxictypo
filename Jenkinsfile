@@ -16,9 +16,9 @@ pipeline {
         sh 'curl app:8083'
         sh 'docker exec test "./e2e_test.py app:8083"'
         sh 'docker rm -f /test /app'
+        }
       }
     }
-
     stage ('STAGE 2 build, test and publish image') {
       when { branch "main" }
       steps {
@@ -34,7 +34,7 @@ pipeline {
         sh 'docker push public.ecr.aws/c7o8u9c1/toxicapp:${env.BUILD_NUMBER}'
       }
     }
-
+  }
     stage ('STAGE 3 deploy app on aws instance') {
       when {branch "main"}       
       steps {
