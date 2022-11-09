@@ -1,6 +1,6 @@
 FROM python:2.7
 
-COPY .toxictypoapp/src/test ./test
+COPY ./src/test ./test
 
 WORKDIR /test
 
