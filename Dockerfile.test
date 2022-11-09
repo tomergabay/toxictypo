@@ -6,4 +6,4 @@ WORKDIR /test
 
 RUN pip install -r requirments.txt
  
-ENTRYPOINT ["./e2e_test","app:8083","sanity"]
+ENTRYPOINT ["./e2e_test.py","app:8083","sanity"]
