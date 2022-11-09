@@ -44,7 +44,7 @@ pipeline {
   }  
   post {
     always {
-      sh 'docker rm -f /app /tets'
+      sh 'docker rm -f /app /test'
     }
   } 
 }
