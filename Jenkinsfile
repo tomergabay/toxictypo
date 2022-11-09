@@ -10,12 +10,10 @@ pipeline {
       steps {
         configFileProvider([configFile(fileId: "mvn-settings", variable: "MAVEN_SETTINGS")]) {
             sh 'mvn verify -s $MAVEN_SETTINGS'
-        sh 'docker build -t feature:${env.BUILD_NUMBER} ./Dockerfile'
-        sh 'docker run --name app -p 8083:8083 --network suggest-lib_my_net'
-        sh 'docker run --name test --network suggest-lib_my_net'
-        sh 'curl app:8083'
-        sh 'docker exec test "./e2e_test.py app:8083"'
-        sh 'docker rm -f /test /app'
+        sh 'docker build -t feature:${env.BUILD_NUMBER} .'
+        sh 'docker build -f Dockerfile.test -t testimage:lts .'
+        sh "docker run --name app --network suggest-lib_my_net -d toxicapp:${env.BUILD_NUMBER}"
+        sh 'docker run --name test --network suggest-lib_my_net testimage:lts'
         }
       }
     }
