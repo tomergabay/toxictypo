@@ -44,7 +44,7 @@ pipeline {
   post {
     always {
       sh 'docker rm -f /app /test'
-      sh 'docker image rm toxicapp:${env.BUILD_NUMBER} testimage:lts
+      sh "docker image rm toxicapp:${env.BUILD_NUMBER} testimage:lts"
     }  
     failure{
       sh 'echo you faild"
