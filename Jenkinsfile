@@ -47,7 +47,7 @@ pipeline {
       sh "docker image rm toxicapp:${env.BUILD_NUMBER} testimage:lts"
     }  
     failure{
-      sh 'echo you faild"
+      sh 'echo you faild'
     }
     success{
       echo 'nice job!'
