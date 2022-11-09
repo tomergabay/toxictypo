@@ -26,8 +26,9 @@ pipeline {
           sh 'mvn verify -s $MAVEN_SETTINGS' 
         sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c7o8u9c1'        
         sh "docker build -t toxicapp:${env.BUILD_NUMBER} ."
-        sh 'docker run --name app -p 8083:8083 --network suggest-lib_my_net'
-        sh 'docker run --name test --network suggest-lib_my_net'
+        sh "docker run --name app -p 8083:8083 --network suggest-lib_my_net -d toxicapp:${env.BUILD_NUMBER}"
+        sh 'docker build -t testimage -f ./Dockerfile.test'
+        sh 'docker run --name test --network suggest-lib_my_net testimage -d'
         sh 'curl app:8083'
         sh "docker exec test './e2e_test.py app:8083'"
         sh 'docker rm -f /test /app'
