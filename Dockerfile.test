@@ -4,4 +4,4 @@ COPY ./src/test ./test
 
 WORKDIR /test
 
-RUN pip install -r requiments.txt
+RUN pip install -r requirments.txt
