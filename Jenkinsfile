@@ -22,6 +22,7 @@ pipeline {
     stage ('STAGE 2 build, test and publish image') {
       when { branch "main" }
       steps {
+        sh 'mvn clean'
         configFileProvider([configFile(fileId: "mvn-settings", variable: "MAVEN_SETTINGS")]) {
           sh 'mvn verify -s $MAVEN_SETTINGS' 
         sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c7o8u9c1'        
