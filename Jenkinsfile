@@ -41,10 +41,10 @@ pipeline {
         sh './cd.sh 52.205.112.131'
       }
     }
-      post {
-        always {
-          sh 'docker rm -f /app /tets'
-        }
-      }
-  }
+  }  
+  post {
+    always {
+      sh 'docker rm -f /app /tets'
+    }
+  } 
 }
