@@ -46,6 +46,7 @@ pipeline {
   post {
     always {
       sh 'docker rm -f /app /test'
+      sh 'docker image rm toxicapp:${env.BUILD_NUMBER} testimage:lts
     }
   } 
 }
