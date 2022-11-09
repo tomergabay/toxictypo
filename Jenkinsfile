@@ -23,8 +23,9 @@ pipeline {
       when { branch "main" }
       steps {
         configFileProvider([configFile(fileId: "mvn-settings", variable: "MAVEN_SETTINGS")]) {
+          sh 'mvn verify -s $MAVEN_SETTINGS' 
         sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c7o8u9c1'        
-        sh 'docker build -t toxicapp: .'
+        sh 'docker build -t toxicapp:${env.BUILD_NUMBER} .'
         sh 'docker run --name app -p 8083:8083 --network suggest-lib_my_net'
         sh 'docker run --name test --network suggest-lib_my_net'
         sh 'curl app:8083'
@@ -43,4 +44,3 @@ pipeline {
     }
   }
 }
-
