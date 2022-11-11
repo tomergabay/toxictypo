@@ -29,6 +29,7 @@ pipeline {
         sh "docker build -t toxicapp:${env.BUILD_NUMBER} ."
         sh "docker run --name app --network suggest-lib_my_net -d toxicapp:${env.BUILD_NUMBER}"
         sh 'docker build -f Dockerfile.test -t testimage:lts .'
+        sh 'sleep 10'
         sh 'docker run --name test --network suggest-lib_my_net testimage:lts'
         sh "docker tag toxicapp:${env.BUILD_NUMBER} public.ecr.aws/c7o8u9c1/toxicapp:${env.BUILD_NUMBER}"
         sh "docker push public.ecr.aws/c7o8u9c1/toxicapp:${env.BUILD_NUMBER}"
