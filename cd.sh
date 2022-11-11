@@ -3,7 +3,7 @@
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~deplying~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 #connect to the instance, cleanup the machine, extract the files from the .tar and execute the app
-ssh -i "~/lavagna-gab.pem" ubuntu@$1 << EOF
+ssh ubuntu@$1 << EOF
 docker rm -f /application
 aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c7o8u9c1
 docker pull c7o8u9c1.dkr.ecr.us-east-1.amazonaws.com/toxicapp:${env.BUILD_NUMBER}
