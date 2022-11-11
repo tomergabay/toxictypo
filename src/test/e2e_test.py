@@ -28,17 +28,17 @@ def test(expect,send,srv):
         if suggestion is None or suggestion=="None" or suggestion==None:
             return True
         else:
-            print ("@{}@".format(suggestion))
+            print "@{}@".format(suggestion)
 
     success = (suggestion==expect)
-    if not success: print ("Failure: Expected %s and got %s"%(expect,suggestion))
+    if not success: print "Failure: Expected %s and got %s"%(expect,suggestion)
     return success
 
 def getArg(args,name,i,d):
     ret = d
     if len(args)>i:
       ret = args[i]
-    print ("%s is set to %s")%(name,ret)
+    print "%s is set to %s"%(name,ret)
     return ret
 
 start_time = time.time()
@@ -48,7 +48,7 @@ testFile=getArg(sys.argv,"Test level",2,"sanity")
 wt=int(getArg(sys.argv,"Wait time",3,"0"))
 
 if wt>0:
-  print ("Waiting %d seconds before starting to send test messages..."%wt)
+  print "Waiting %d seconds before starting to send test messages..."%wt
   time.sleep(wt)
 
 i=0
@@ -58,7 +58,7 @@ f=open(testFile,"r")
 for line in f:
     i+=1
     if (i%50)==0:
-        print ("%d tests and counting..."%i)
+        print "%d tests and counting..."%i
     words = line.strip().split("->")
     if not test(words[1],words[0],server):
         ret=1
@@ -66,8 +66,8 @@ for line in f:
 
 
 end_time = time.time()
-print ("{} tests performed in {}.".format(i,hms_string(end_time - start_time)))
+print "{} tests performed in {}.".format(i,hms_string(end_time - start_time))
 if b>0:
-    print ("{} failures!".format(b))
+    print "{} failures!".format(b)
 exit(ret)
 
