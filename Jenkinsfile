@@ -39,7 +39,7 @@ pipeline {
     stage ('STAGE 3 deploy app on prod') {
       when {branch "main"}       
       steps {
-        sh "./cd.sh ${env.IP_PROD}"
+        sh "./cd.sh ${env.IP_PROD} ${env.BUILD_NUMBER}"
       }
     }
   }  
